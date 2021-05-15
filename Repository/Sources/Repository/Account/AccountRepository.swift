@@ -19,7 +19,7 @@ public final class AccountRepository: Repository {
     
     // MARK: - Initializers
     
-    init(keychainStore: KeychainStoreProtocol) {
+    public init(keychainStore: KeychainStoreProtocol = KeychainStore()) {
         self.keychainStore = keychainStore
     }
     

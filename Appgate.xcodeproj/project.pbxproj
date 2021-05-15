@@ -13,7 +13,11 @@
 		0D0CD41926500D17005D9777 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D0CD41826500D17005D9777 /* Preview Assets.xcassets */; };
 		0D0CD42426500D17005D9777 /* AppgateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0CD42326500D17005D9777 /* AppgateTests.swift */; };
 		0D0CD42F26500D17005D9777 /* AppgateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0CD42E26500D17005D9777 /* AppgateUITests.swift */; };
-		0DBC7AE3265010BC00FD27F0 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 0DBC7AE2265010BC00FD27F0 /* Core */; };
+		0D762E02265053A4003174AF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D762E01265053A4003174AF /* HomeView.swift */; };
+		0D762E04265053BC003174AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D762E03265053BC003174AF /* HomeViewModel.swift */; };
+		0D762E0626505DE6003174AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 0D762E0526505DE6003174AF /* Core */; };
+		0D762E0826505DEB003174AF /* Repository in Frameworks */ = {isa = PBXBuildFile; productRef = 0D762E0726505DEB003174AF /* Repository */; };
+		0D762E0B26505FBF003174AF /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D762E0A26505FBF003174AF /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,9 @@
 		0D0CD42A26500D17005D9777 /* AppgateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppgateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D0CD42E26500D17005D9777 /* AppgateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppgateUITests.swift; sourceTree = "<group>"; };
 		0D0CD43026500D17005D9777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D762E01265053A4003174AF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		0D762E03265053BC003174AF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		0D762E0A26505FBF003174AF /* SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DBC7AE3265010BC00FD27F0 /* Core in Frameworks */,
+				0D762E0826505DEB003174AF /* Repository in Frameworks */,
+				0D762E0626505DE6003174AF /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,11 +106,13 @@
 		0D0CD41026500D14005D9777 /* Appgate */ = {
 			isa = PBXGroup;
 			children = (
+				0D0CD41A26500D17005D9777 /* Info.plist */,
 				0D0CD41126500D14005D9777 /* AppgateApp.swift */,
 				0D0CD41326500D14005D9777 /* ContentView.swift */,
 				0D0CD41526500D17005D9777 /* Assets.xcassets */,
-				0D0CD41A26500D17005D9777 /* Info.plist */,
+				0D762DFF2650535E003174AF /* Modules */,
 				0D0CD41726500D17005D9777 /* Preview Content */,
+				0D762E0926505F9B003174AF /* Utility */,
 			);
 			path = Appgate;
 			sourceTree = "<group>";
@@ -133,6 +143,31 @@
 			path = AppgateUITests;
 			sourceTree = "<group>";
 		};
+		0D762DFF2650535E003174AF /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				0D762E0026505391003174AF /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		0D762E0026505391003174AF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0D762E01265053A4003174AF /* HomeView.swift */,
+				0D762E03265053BC003174AF /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		0D762E0926505F9B003174AF /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0D762E0A26505FBF003174AF /* SimpleAlert.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		0DBC7AE1265010BC00FD27F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,7 +192,8 @@
 			);
 			name = Appgate;
 			packageProductDependencies = (
-				0DBC7AE2265010BC00FD27F0 /* Core */,
+				0D762E0526505DE6003174AF /* Core */,
+				0D762E0726505DEB003174AF /* Repository */,
 			);
 			productName = Appgate;
 			productReference = 0D0CD40E26500D14005D9777 /* Appgate.app */;
@@ -272,8 +308,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D762E02265053A4003174AF /* HomeView.swift in Sources */,
 				0D0CD41426500D14005D9777 /* ContentView.swift in Sources */,
 				0D0CD41226500D14005D9777 /* AppgateApp.swift in Sources */,
+				0D762E04265053BC003174AF /* HomeViewModel.swift in Sources */,
+				0D762E0B26505FBF003174AF /* SimpleAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,9 +628,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0DBC7AE2265010BC00FD27F0 /* Core */ = {
+		0D762E0526505DE6003174AF /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;
+		};
+		0D762E0726505DEB003174AF /* Repository */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repository;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -11,7 +11,7 @@ import SwiftUI
 struct AppgateApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(viewModel: .init())
         }
     }
 }
