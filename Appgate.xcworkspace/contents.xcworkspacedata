@@ -5,6 +5,15 @@
       location = "group:Appgate.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Repository">
+   </FileRef>
+   <FileRef
+      location = "group:KeychainStoreTests/KeychainStoreTests.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:KeychainStore">
+   </FileRef>
+   <FileRef
       location = "group:Core">
    </FileRef>
 </Workspace>
