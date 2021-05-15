@@ -10,7 +10,7 @@ import Core
 
 struct ContentView: View {
     var body: some View {
-        Text(Core.text)
+        Text("Hello, World!")
             .padding()
     }
 }
