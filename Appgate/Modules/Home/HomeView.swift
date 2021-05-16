@@ -31,6 +31,10 @@ struct HomeView: View {
                         hideKeyboard()
                         viewModel.createAccount()
                     }
+                    Button("Validate account") {
+                        hideKeyboard()
+                        viewModel.validateAccount()
+                    }
                 }
                 .disabled(!viewModel.isValid)
             }

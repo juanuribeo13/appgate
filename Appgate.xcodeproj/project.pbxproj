@@ -18,6 +18,7 @@
 		0D762E0626505DE6003174AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 0D762E0526505DE6003174AF /* Core */; };
 		0D762E0826505DEB003174AF /* Repository in Frameworks */ = {isa = PBXBuildFile; productRef = 0D762E0726505DEB003174AF /* Repository */; };
 		0D762E0B26505FBF003174AF /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D762E0A26505FBF003174AF /* SimpleAlert.swift */; };
+		0D762E0D265068DD003174AF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D762E0C265068DD003174AF /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		0D762E01265053A4003174AF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0D762E03265053BC003174AF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0D762E0A26505FBF003174AF /* SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
+		0D762E0C265068DD003174AF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 		0D762E0926505F9B003174AF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0D762E0C265068DD003174AF /* LocationManager.swift */,
 				0D762E0A26505FBF003174AF /* SimpleAlert.swift */,
 			);
 			path = Utility;
@@ -310,6 +313,7 @@
 			files = (
 				0D762E02265053A4003174AF /* HomeView.swift in Sources */,
 				0D0CD41426500D14005D9777 /* ContentView.swift in Sources */,
+				0D762E0D265068DD003174AF /* LocationManager.swift in Sources */,
 				0D0CD41226500D14005D9777 /* AppgateApp.swift in Sources */,
 				0D762E04265053BC003174AF /* HomeViewModel.swift in Sources */,
 				0D762E0B26505FBF003174AF /* SimpleAlert.swift in Sources */,

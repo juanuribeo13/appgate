@@ -21,15 +21,17 @@ final class HomeViewModel: ObservableObject {
     
     private var cancellableSet: Set<AnyCancellable> = []
     private let accountRepository: AccountRepository
+    private let locationManager: LocationManager
     
     // MARK: - Initializers
     
     init() {
         accountRepository = .init()
+        locationManager = .init()
         bind()
     }
     
-    // MARK: - Public Functions
+    // MARK: - Internal Functions
     
     func createAccount() {
         let account = Account(username: username, password: password)
@@ -43,6 +45,34 @@ final class HomeViewModel: ObservableObject {
                         self?.username = ""
                         self?.password = ""
                       })
+    }
+    
+    func validateAccount() {
+        guard let location = locationManager.lastLocation else {
+            alert = .init(title: "Error",
+                          message: "No location available, please wait until we get your location or if permission was denied, please allow us access to your location to be able to use this feature.")
+            return
+        }
+        let account = Account(username: username, password: password)
+        accountRepository.validate(
+            item: account,
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude) { [weak self] result in
+            switch result {
+            case .success(let attempts):
+                print(attempts)
+            case .failure(let error):
+                switch error {
+                case .generic, .failedGettingTimeZone:
+                    self?.alert = .init(
+                        title: "Error",
+                        message: "Something went wrong, please try again later")
+                case .invalidCredentials:
+                    self?.alert = .init(title: "Error",
+                                        message: "Invalid credentials")
+                }
+            }
+        }
     }
     
     // MARK: - Private Functions
