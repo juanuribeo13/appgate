@@ -35,6 +35,13 @@ struct HomeView: View {
                         hideKeyboard()
                         viewModel.validateAccount()
                     }
+                    if viewModel.isValidated {
+                        NavigationLink(
+                            destination: ValidationAttemptListView(
+                                viewModel: viewModel.validationAttemptsVM)) {
+                            Text("View validation attempts")
+                        }
+                    }
                 }
                 .disabled(!viewModel.isValid)
             }

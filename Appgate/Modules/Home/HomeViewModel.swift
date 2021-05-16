@@ -14,14 +14,20 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Properties
     
+    @Published var isValidated: Bool = false
     @Published var username: String = ""
     @Published var password: String = ""
     @Published private(set) var isValid: Bool = false
     @Published var alert: SimpleAlert? = nil
     
+    var validationAttemptsVM: ValidationAttemptListViewModel {
+        .init(validationAttempts: validationAttempts)
+    }
+    
     private var cancellableSet: Set<AnyCancellable> = []
     private let accountRepository: AccountRepository
     private let locationManager: LocationManager
+    private var validationAttempts: [ValidationAttempt] = []
     
     // MARK: - Initializers
     
@@ -29,11 +35,15 @@ final class HomeViewModel: ObservableObject {
         accountRepository = .init()
         locationManager = .init()
         bind()
+        // TODO: Remove test code
+        username = "juan@test.com"
+        password = "Password1!"
     }
     
     // MARK: - Internal Functions
     
     func createAccount() {
+        isValidated = false
         let account = Account(username: username, password: password)
         guard accountRepository.add(item: account) else {
             alert = .init(title: "Error",
@@ -60,8 +70,10 @@ final class HomeViewModel: ObservableObject {
             longitude: location.coordinate.longitude) { [weak self] result in
             switch result {
             case .success(let attempts):
-                print(attempts)
+                self?.validationAttempts = attempts
+                self?.isValidated = true
             case .failure(let error):
+                self?.isValidated = false
                 switch error {
                 case .generic, .failedGettingTimeZone:
                     self?.alert = .init(
