@@ -10,8 +10,7 @@ import Core
 import KeychainStore
 
 /// Repository for accounts.
-public final class AccountRepository: Repository {
-    public typealias Model = Account
+public final class AccountRepository: AccountRepositoryProtocol {
     
     public enum Error: Swift.Error {
         case generic
@@ -23,29 +22,30 @@ public final class AccountRepository: Repository {
     
     private let keychainStore: KeychainStoreProtocol
     private let userDefaults: UserDefaults
-    private let networkRequestManager: NetworkRequestManagerProtocol
+    private let geoTimeZoneRepository: GeoTimeZoneRepositoryProtocol
     
     // MARK: - Initializers
     
     init(keychainStore: KeychainStoreProtocol,
-         networkRequestManager: NetworkRequestManagerProtocol,
+         geoTimeZoneRepository: GeoTimeZoneRepositoryProtocol,
          userDefaults: UserDefaults) {
         self.keychainStore = keychainStore
-        self.networkRequestManager = networkRequestManager
+        self.geoTimeZoneRepository = geoTimeZoneRepository
         self.userDefaults = userDefaults
     }
     
     public convenience init(
         keychainStore: KeychainStoreProtocol = KeychainStore()) {
         self.init(keychainStore: keychainStore,
-                  networkRequestManager: NetworkRequestManager(),
+                  geoTimeZoneRepository: GeoTimeZoneRepository(),
                   userDefaults: .standard)
     }
     
     // MARK: - Public Functions
     
-    public func add(item: Account) -> Bool {
-        keychainStore.add(username: item.username, password: item.password)
+    public func add(account: Account) -> Bool {
+        keychainStore.add(username: account.username,
+                          password: account.password)
     }
     
     /// Validate the given account.
@@ -60,18 +60,8 @@ public final class AccountRepository: Repository {
         latitude: Double,
         longitude: Double,
         completion: @escaping (Result<[ValidationAttempt], Error>) -> Void) {
-        guard let url =
-                URL(string: "http://api.geonames.org/timezoneJSON") else {
-            completion(.failure(.failedGettingTimeZone))
-            return
-        }
-        networkRequestManager.makeRequest(
-            url: url,
-            httpMethod: .GET,
-            parameters: ["lat": latitude,
-                         "lng": longitude,
-                         "username": "qa_mobile_easy"],
-            modelType: Core.GeoTimeZone.self) { [weak self] result in
+        geoTimeZoneRepository.get(latitude: latitude,
+                                  longitude: longitude) { [weak self] result in
             guard let strongSelf = self else {
                 completion(.failure(.generic))
                 return

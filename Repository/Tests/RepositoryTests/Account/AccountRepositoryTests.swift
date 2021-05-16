@@ -15,7 +15,7 @@ final class AccountRepositoryTests: XCTestCase {
     
     var sut: AccountRepository!
     var keychainStore: FakeKeychainStore!
-    var networkRequestManager: FakeNetworkRequestManager!
+    var geoTimeZoneRepository: FakeGeoTimeZoneRepository!
     var userDefaults: FakeUserDefaults!
     
     let account = Account(username: "test@test.com", password: "Password1!")
@@ -27,10 +27,10 @@ final class AccountRepositoryTests: XCTestCase {
     override func setUp() {
         super.setUp()
         keychainStore = .init()
-        networkRequestManager = .init()
+        geoTimeZoneRepository = .init()
         userDefaults = .init()
         sut = .init(keychainStore: keychainStore,
-                    networkRequestManager: networkRequestManager,
+                    geoTimeZoneRepository: geoTimeZoneRepository,
                     userDefaults: userDefaults)
         
         time = Date()
@@ -46,7 +46,7 @@ final class AccountRepositoryTests: XCTestCase {
         super.tearDown()
         sut = nil
         keychainStore = nil
-        networkRequestManager = nil
+        geoTimeZoneRepository = nil
         userDefaults = nil
         
         time = nil
@@ -59,8 +59,8 @@ final class AccountRepositoryTests: XCTestCase {
         // Given
         XCTAssertFalse(keychainStore.addCalled)
         // When
-        _ = sut.add(item: .init(username: "test@test.com",
-                                password: "Password1!"))
+        _ = sut.add(account: .init(username: "test@test.com",
+                                   password: "Password1!"))
         // Then
         XCTAssertTrue(keychainStore.addCalled)
     }
@@ -68,12 +68,12 @@ final class AccountRepositoryTests: XCTestCase {
     func testValidate_valid_withoutPreviousAttempts() {
         // Given
         XCTAssertFalse(keychainStore.fetchPasswordCalled)
-        XCTAssertFalse(networkRequestManager.makeRequestCalled)
+        XCTAssertFalse(geoTimeZoneRepository.getCalled)
         XCTAssertFalse(userDefaults.dataForKeyCalled)
         XCTAssertFalse(userDefaults.setValueCalled)
         
         keychainStore.fetchPasswordStub = account.password
-        networkRequestManager.stubResponse = .success(stubTimeZone)
+        geoTimeZoneRepository.getResultStub = .success(stubTimeZone)
         userDefaults.dataForKeyStubData = nil
         
         // When
@@ -100,12 +100,12 @@ final class AccountRepositoryTests: XCTestCase {
     func testValidate_valid_withPreviousAttempts() {
         // Given
         XCTAssertFalse(keychainStore.fetchPasswordCalled)
-        XCTAssertFalse(networkRequestManager.makeRequestCalled)
+        XCTAssertFalse(geoTimeZoneRepository.getCalled)
         XCTAssertFalse(userDefaults.dataForKeyCalled)
         XCTAssertFalse(userDefaults.setValueCalled)
         
         keychainStore.fetchPasswordStub = account.password
-        networkRequestManager.stubResponse = .success(stubTimeZone)
+        geoTimeZoneRepository.getResultStub = .success(stubTimeZone)
         
         
         let attempts: [ValidationAttempt] = [
@@ -142,12 +142,12 @@ final class AccountRepositoryTests: XCTestCase {
     func testValidate_invalid() {
         // Given
         XCTAssertFalse(keychainStore.fetchPasswordCalled)
-        XCTAssertFalse(networkRequestManager.makeRequestCalled)
+        XCTAssertFalse(geoTimeZoneRepository.getCalled)
         XCTAssertFalse(userDefaults.dataForKeyCalled)
         XCTAssertFalse(userDefaults.setValueCalled)
         
         keychainStore.fetchPasswordStub = "AnotherPass2@"
-        networkRequestManager.stubResponse = .success(stubTimeZone)
+        geoTimeZoneRepository.getResultStub = .success(stubTimeZone)
         userDefaults.dataForKeyStubData = nil
         
         // When

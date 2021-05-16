@@ -35,9 +35,6 @@ final class HomeViewModel: ObservableObject {
         accountRepository = .init()
         locationManager = .init()
         bind()
-        // TODO: Remove test code
-        username = "juan@test.com"
-        password = "Password1!"
     }
     
     // MARK: - Internal Functions
@@ -45,7 +42,7 @@ final class HomeViewModel: ObservableObject {
     func createAccount() {
         isValidated = false
         let account = Account(username: username, password: password)
-        guard accountRepository.add(item: account) else {
+        guard accountRepository.add(account: account) else {
             alert = .init(title: "Error",
                           message: "There was an error creating the account :(")
             return
